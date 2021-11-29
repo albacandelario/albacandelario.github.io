@@ -1,0 +1,26 @@
+{
+  "name": "carloselbombas",
+  "version": "1.0.0",
+  "description": "CarlosElBombas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albacandelario/carlosweb.git"
+  },
+  "author": "Marc Martinez",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  },
+  "bugs": {
+    "url": "https://github.com/albacandelario/carlosweb/issues"
+  },
+  "homepage": "https://github.com/albacandelario/carlosweb#readme"
+}
