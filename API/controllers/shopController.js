@@ -42,6 +42,26 @@ module.exports = {
             item: req.body.item,
             price: req.body.price,
         });
-        res.status(c.status.success).send({ msg: `Shop item added with id: ${shopData.length - 1}`})
+        res.status(c.status.success).send({ msg: `Shop item added with id: ${shopData.length - 1}`});
+    },
+    updateShop: (req, res) => {
+        const item = shopData.find((shopitem) => shopitem.id === req.body.id);
+
+        if (item) {
+            shopData.forEach((shopitem, i) => {
+                if (shopitem.id === item.id) {
+                    shopData.splice(i, 1);
+                    shopData.push({
+                        id: req.body.id,
+                        item: req.body.item,
+                        price: req.body.price,
+                    });
+
+                    res.status(c.status.success).send({ msg: 'Item updated!' });
+                }
+            });
+        } else {
+            res.status(c.status.notFound).send({ msg: 'Item not found' });
+        }
     }
 }

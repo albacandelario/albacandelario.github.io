@@ -13,6 +13,7 @@ module.exports = {
             next();
         }
     },
+
     checkId: (req, res, next) => {
         if (typeof req.body.id !== 'undefined') {
             req.body.id = +req.body.id;
@@ -26,10 +27,10 @@ module.exports = {
         }
     },
 
-    checkItemId: (req, res, next) => {
-        if (typeof req.body.item !== 'undefined') {
-            req.body.item = +req.body.item;
-            if (!Number.isNaN(req.body.item)) {
+    checkQuality: (req, res, next) => {
+        if (typeof req.body.quality !== 'undefined') {
+            req.body.item = +req.body.quality;
+            if (!Number.isNaN(req.body.quality)) {
                 next();
             } else {
                 res.status(c.status.badRequest).send({ msg: 'You must introduce a number as item id!'})
@@ -39,16 +40,24 @@ module.exports = {
         }
     },
 
-    checkPrice: (req, res, next) => {
-        if (typeof req.body.price !== 'undefined') {
-            req.body.price = +req.body.price;
-            if (!Number.isNaN(req.body.price)) {
-                next();
-            } else {
-                res.status(c.status.badRequest).send({ msg: 'You must introduce a number as price!'})
-            }
+    updateShop: (req, res) => {
+        const item = shopData.find((shopitem) => shopitem.id === req.body.id);
+
+        if (item) {
+            shopData.forEach((shopitem, i) => {
+                if (shopitem.id === item.id) {
+                    shopData.splice(i, 1);
+                    shopData.push({
+                        id: req.body.id,
+                        item: req.body.item,
+                        price: req.body.price,
+                    });
+
+                    res.status(c.status.success).send({ msg: 'Item updated!' });
+                }
+            });
         } else {
-            next();
+            res.status(c.status.notFound).send({ msg: 'Item not found' });
         }
-    },
+    }
 }
